@@ -1,9 +1,26 @@
-
-
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import Home from "./pages/Home";
+import Profile from "./pages/Profile";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import Offers from "./pages/offers";
+import ForgotPassword from "./pages/forgotPassword";
 function App() {
   return (
     
-    <h1 className='text-2xl bg-red-200'> Hello World</h1>
+    <Router>
+        <Routes>
+            <Route path='/' element={<Home/>}/>
+            <Route path='/profile' element={<Profile/>}/>
+            <Route path='/sign-in' element={<SignIn/>}/>
+            <Route path='/sign-up' element={<SignUp/>}/>
+            <Route path='/offers' element={<Offers/>}/>
+            <Route path='/forgot-password' element={<ForgotPassword/>}/>
+
+           
+        </Routes>
+      </Router>
   );
 }
 

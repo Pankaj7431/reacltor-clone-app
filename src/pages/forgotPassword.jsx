@@ -26,7 +26,7 @@ export default function ForgotPassword() {
                 type="email"
                 value={email}
                 className="w-full px-5 py-3 text-xl
-              text-gray-700 bg-gray-300 m-1 rounded-2xl transition ease-in-out"
+              text-gray-700 bg-gray-100 m-1 rounded-2xl transition ease-in-out"
                 onChange={onChange}
                 id="email"
                 placeholder="Email Address"

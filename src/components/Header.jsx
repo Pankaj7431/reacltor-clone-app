@@ -1,5 +1,6 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+// import { useEffect, useState } from "react";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -24,8 +25,8 @@ export default function Header() {
         <div>
           <ul className="flex space-x-5">
             <li
-              className={`cursor-pointer py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent ${
-                pathMatchRoute("/") && "text-black border-b-red-500"
+              className={`cursor-pointer py-3 text-sm font-semibold  text-gray-400 border-b-[3px] border-b-transparent ${
+                pathMatchRoute("/") && "text-gray-800 border-b-red-600"
               }`}
               onClick={()=> navigate("/")}
             >
@@ -33,7 +34,7 @@ export default function Header() {
             </li>
             <li
               className={`cursor-pointer py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent ${
-                pathMatchRoute("/offers") && "text-black border-b-red-500"
+                pathMatchRoute("/offers") && "text-gray-800 border-b-red-600"
               }`}
               onClick={()=> navigate("/offers")}
             >
@@ -41,7 +42,7 @@ export default function Header() {
             </li>
             <li
               className={`cursor-pointer py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent ${
-                pathMatchRoute("/sign-in") && "text-black border-b-red-500"
+                pathMatchRoute("/sign-in") && "text-gray-800 border-b-red-600"
               }`}
               onClick={()=> navigate("/sign-in")}
             >

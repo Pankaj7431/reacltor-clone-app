@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import OAuth from "../components/OAuth";
 
 export default function ForgotPassword() {
@@ -7,7 +9,16 @@ export default function ForgotPassword() {
   function onChange(e) {
     setEmail(e.target.value);
   }
- 
+  async function onSubmit(e) {
+    e.preventDefault();
+    try {
+      const auth = getAuth();
+      await sendPasswordResetEmail(auth, email);
+      toast.success("Email was sent");
+    } catch (error) {
+      toast.error("Could not send reset password");
+    }
+  }
   return (
     <section>
       <h1 className="text-center font-bold text-4xl">Sign In</h1>
@@ -20,7 +31,7 @@ export default function ForgotPassword() {
           />
         </div>
         <div className="w-full md:w-[67%] lg:w-[40%] lg:ml-20">
-          <form>
+          <form onSubmit={onSubmit}>
             <div>
               <input
                 type="email"
@@ -32,7 +43,7 @@ export default function ForgotPassword() {
                 placeholder="Email Address"
               />
             </div>
-            
+
             <div className="flex justify-between whitespace-nowrap text-sm sm:text-lg ml-2 mt-2">
               <p>
                 Don't Have Account?
@@ -40,7 +51,7 @@ export default function ForgotPassword() {
                   to="/sign-up"
                   className="text-red-500 hover:text-red-700 transition duration-400 ease-in-out ml-1"
                 >
-                  Sign Up.
+                  Register
                 </Link>
               </p>
               <p>
@@ -70,7 +81,7 @@ export default function ForgotPassword() {
               <p className="text-center font-semibold mx-5">OR</p>
             </div>
           </form>
-          <OAuth/>
+          <OAuth />
         </div>
       </div>
     </section>

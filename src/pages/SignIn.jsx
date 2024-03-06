@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import OAuth from "../components/OAuth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { toast } from "react-toastify";
 
 export default function SignIn() {
   const [formData, setFormData] = useState({
@@ -9,12 +11,31 @@ export default function SignIn() {
     password: "",
   });
   const { email, password } = formData;
+  const navigate = useNavigate()
   function onChange(e) {
     setFormData((prevState) => ({
       ...prevState,
       [e.target.id]: e.target.value,
     }));
   }
+
+  async function onSubmit(e) {
+    e.preventDefault();
+    try {
+      const auth = getAuth();
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      )
+      if(userCredential.user){
+        navigate('/')
+      }
+    } catch (error) {
+      toast.error("Invalid Credentials");
+    }
+  }
+
   const [showPassword, setShowPassword] = useState(false);
   return (
     <section>
@@ -28,7 +49,7 @@ export default function SignIn() {
           />
         </div>
         <div className="w-full md:w-[67%] lg:w-[40%] lg:ml-20">
-          <form>
+          <form onSubmit={onSubmit}>
             <div>
               <input
                 type="email"
@@ -99,7 +120,7 @@ export default function SignIn() {
               <p className="text-center font-semibold mx-5">OR</p>
             </div>
           </form>
-          <OAuth/>
+          <OAuth />
         </div>
       </div>
     </section>

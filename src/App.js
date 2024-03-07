@@ -9,6 +9,7 @@ import ForgotPassword from "./pages/forgotPassword";
 import Header from './components/Header';
 import { Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import PrivateRouter from './components/PrivateRouter';
 function App() {
   return (
     <>
@@ -16,7 +17,10 @@ function App() {
         <Header />
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route path='/profile' element={<PrivateRouter/>}>
           <Route path='/profile' element={<Profile />} />
+          </Route>
+          
           <Route path='/sign-in' element={<SignIn />} />
           <Route path='/sign-up' element={<SignUp />} />
           <Route path='/offers' element={<Offers />} />
@@ -26,7 +30,7 @@ function App() {
         </Routes>
       </Router>
       <ToastContainer
-        position="bottom-center"
+        position="top-right"
         autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}

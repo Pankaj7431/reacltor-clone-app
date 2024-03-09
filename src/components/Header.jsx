@@ -24,7 +24,7 @@ export default function Header() {
     if (route === location.pathname) return true;
   }
   return (
-    <div className="bg-white border-b shadow-sm sticky top-0">
+    <div className="bg-white border-b shadow-sm sticky top-0 z-40">
       <header
         className="flex justify-between items-center
       px-5 max-w-6xl mx-auto"

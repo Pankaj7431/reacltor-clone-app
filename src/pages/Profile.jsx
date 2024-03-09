@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { getAuth, updateCurrentUser, updateProfile } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { doc, updateDoc } from "firebase/firestore"
-import { db } from "../firebase"
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../firebase";
+import { FcHome } from "react-icons/fc";
 
 export default function Profile() {
   const auth = getAuth();
@@ -33,12 +34,10 @@ export default function Profile() {
           displayName: name,
         });
         //update Display Name in firebase Auth.
-        const dcoRef = doc(db, "users", auth.currentUser.uid)
+        const dcoRef = doc(db, "users", auth.currentUser.uid);
         await updateDoc(dcoRef, {
           name,
-
-
-        })
+        });
       }
       toast.success("Profile Updated");
     } catch (error) {
@@ -98,6 +97,19 @@ export default function Profile() {
             >
               Sign Out
             </p>
+          </div>
+          <div className="">
+            <button
+              type="Submit"
+              className="w-full bg-blue-500 text-white uppercase px-7 py-2 text-m font-medium 
+              rounded-2xl shadow-md hover:bg-blue-600 transition ease-in-out duration-700 hover:shadow-lg
+              active:bg-blue-800"
+            >
+              <Link to="/create-listing" className="flex justify-center items-center">
+                <FcHome className="mr-2 text-3xl rounded-full bg-green-200 p-1 border-2"/>
+                Sell or Rent your Home
+              </Link>
+            </button> 
           </div>
         </form>
       </div>

@@ -187,7 +187,7 @@ export default function CreateListing() {
             className={`mr-2 px-7 py-4 font-medium text-sm uppercase 
           shadow-lg rounded-l hover:shadow-xl focus:shadow-xl
           transition ease-in-out w-full 
-          ${ !offer ? "bg-white text-black" : "bg-slate-600 text-white"}`}
+          ${!offer ? "bg-white text-black" : "bg-slate-600 text-white"}`}
           >
             Yes
           </button>

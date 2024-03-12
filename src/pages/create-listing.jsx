@@ -2,19 +2,55 @@ import React, { useState } from "react";
 
 export default function CreateListing() {
   const [formData, setFormdata] = useState({
-    type: "sell",
+    type: "rent",
     name: "",
     bedroom: 1,
     bathroom: 1,
     parking: false,
-    furnished:false,
-    address:"",
-    description:"",
-    offer:false,
+    furnished: false,
+    address: "",
+    description: "",
+    offer: false,
     regularPrice: 0,
+    discountedPrice: 0,
+    images: {},
   });
-  const { type, name, bedroom, bathroom, parking, furnished, address, description, offer, regularPrice } = formData;
-  function onChange() {}
+  const {
+    type,
+    name,
+    bedroom,
+    bathroom,
+    parking,
+    furnished,
+    address,
+    description,
+    offer,
+    regularPrice,
+    discountedPrice,
+    images,
+  } = formData;
+  function onChange(e) {
+    let boolean = null;
+    if (e.target.value === "true") {
+      boolean = true;
+    }
+    if (e.target.value === "false") {
+      boolean = false;
+    }
+    if (e.target.files) {
+      setFormdata((prevState) => ({
+        ...prevState,
+        images: e.target.files,
+      }));
+    }
+    if (!e.target.files) {
+      setFormdata((prevState) => ({
+        ...prevState,
+        [e.target.id]: boolean ?? e.target.value,
+      }));
+    }
+
+  }
   return (
     <main className="max-w-md px-2 mx-auto ">
       <h1 className="text-3xl text-center mt-6 font-bold">Create a Listing</h1>
@@ -23,6 +59,7 @@ export default function CreateListing() {
         <p className="text-lg mt-6 font-semibold ">Sell / Rent</p>
         <div className="flex mt-3">
           <button
+          
             type="button"
             id="type"
             value="sell"
@@ -30,7 +67,9 @@ export default function CreateListing() {
             className={`mr-2 px-7 py-4 font-medium text-sm uppercase 
           shadow-lg rounded-l hover:shadow-xl focus:shadow-xl
           transition ease-in-out w-full 
-          ${type === "sell" ? "bg-white text-black" : "bg-slate-600 text-white"}`}
+          ${
+            type === "rent" ? "bg-white text-black" : "bg-slate-600 text-white"
+          }`}
           >
             Sell
           </button>
@@ -42,7 +81,9 @@ export default function CreateListing() {
             className={`ml-3 px-7 py-4 font-medium text-sm uppercase 
           shadow-lg rounded-l hover:shadow-xl focus:shadow-xl
           transition ease-in-out w-full 
-          ${type === "rent" ? "bg-white text-black" : "bg-slate-600 text-white"}`}
+          ${
+            type === "sell" ? "bg-white text-black" : "bg-slate-600 text-white"
+          }`}
           >
             Rent
           </button>
@@ -62,7 +103,7 @@ export default function CreateListing() {
         transition ease-in-out duration-500 focus:text-gray-700 focus:bg-white
         focus:border-slate-600 focus:shadow-xl"
         />
-        <div className="flex space-x-7">
+        <div className="flex space-x-7 mb-6">
           <div className="">
             <p className="text-xl mt-5 font-semibold ">Beds</p>
             <input
@@ -70,8 +111,8 @@ export default function CreateListing() {
               id="bedroom"
               value={bedroom}
               onClick={onChange}
-              maxLength="10"
-              minLength="1"
+              min="1"
+              max="50"
               required
               className="w-full px-4 py-2 text-lg text-gray-400 
         bg-white border border-gray-300 rounded-l
@@ -119,7 +160,7 @@ export default function CreateListing() {
             className={`ml-3 px-7 py-4 font-medium text-sm uppercase 
           shadow-lg rounded-l hover:shadow-xl focus:shadow-xl
           transition ease-in-out w-full 
-          ${ furnished ? "bg-white text-black" : "bg-slate-600 text-white"}`}
+          ${furnished ? "bg-white text-black" : "bg-slate-600 text-white"}`}
           >
             No
           </button>
@@ -134,7 +175,7 @@ export default function CreateListing() {
             className={`mr-2 px-7 py-4 font-medium text-sm uppercase 
           shadow-lg rounded-l hover:shadow-xl focus:shadow-xl
           transition ease-in-out w-full 
-          ${! parking ? "bg-white text-black" : "bg-slate-600 text-white"}`}
+          ${!parking ? "bg-white text-black" : "bg-slate-600 text-white"}`}
           >
             Yes
           </button>
@@ -199,13 +240,13 @@ export default function CreateListing() {
             className={`ml-3 px-7 py-4 font-medium text-sm uppercase 
           shadow-lg rounded-l hover:shadow-xl focus:shadow-xl
           transition ease-in-out w-full 
-          ${ offer ? "bg-white text-black" : "bg-slate-600 text-white"}`}
+          ${offer ? "bg-white text-black" : "bg-slate-600 text-white"}`}
           >
             No
           </button>
         </div>
         <div className="flex">
-            <div className="">
+          <div className="">
             <p className="text-xl mt-5 font-semibold ">Regular Price</p>
             <input
               type="number"
@@ -220,15 +261,13 @@ export default function CreateListing() {
         transition ease-in-out duration-500 focus:text-gray-700 focus:bg-white
         focus:border-slate-600 focus:shadow-xl"
             />
-
-            </div>
-            
           </div>
-          {type==="rent" && (
-            <div className="">
-                 <p className="w-full whitespace-nowrap text-md">$/Month</p>
-            </div>
-          )}
+        </div>
+        {type === "rent" && (
+          <div className="">
+            <p className="w-full whitespace-nowrap text-md">$/Month</p>
+          </div>
+        )}
       </form>
     </main>
   );

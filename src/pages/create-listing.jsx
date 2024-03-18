@@ -27,7 +27,7 @@ export default function CreateListing() {
     offer,
     regularPrice,
     discountedPrice,
-    images,
+    images
   } = formData;
   function onChange(e) {
     let boolean = null;
@@ -49,7 +49,6 @@ export default function CreateListing() {
         [e.target.id]: boolean ?? e.target.value,
       }));
     }
-
   }
   return (
     <main className="max-w-md px-2 mx-auto ">
@@ -59,7 +58,6 @@ export default function CreateListing() {
         <p className="text-lg mt-6 font-semibold ">Sell / Rent</p>
         <div className="flex mt-3">
           <button
-          
             type="button"
             id="type"
             value="sell"
@@ -93,7 +91,7 @@ export default function CreateListing() {
           type="text"
           id="name"
           value={name}
-          onClick={onChange}
+          onChange={onChange}
           placeholder="Property Name"
           maxLength="52"
           minLength="10"
@@ -110,7 +108,7 @@ export default function CreateListing() {
               type="number"
               id="bedroom"
               value={bedroom}
-              onClick={onChange}
+              onChange={onChange}
               min="1"
               max="50"
               required
@@ -125,11 +123,11 @@ export default function CreateListing() {
             <p className="text-xl mt-5 font-semibold ">Bathroom</p>
             <input
               type="number"
-              id="bedroom"
+              id="bathroom"
               value={bathroom}
-              onClick={onChange}
-              maxLength="10"
-              minLength="1"
+              onChange={onChange}
+              min="1"
+              max="10"
               required
               className="w-full px-4 py-2 text-lg text-gray-400 
         bg-white border border-gray-300 rounded-l
@@ -197,7 +195,7 @@ export default function CreateListing() {
           type="text"
           id="address"
           value={address}
-          onClick={onChange}
+          onChange={onChange}
           placeholder="Enter Your address"
           required
           className="w-full px-4 py-2 text-lg text-gray-400 
@@ -210,7 +208,7 @@ export default function CreateListing() {
           type="text"
           id="description"
           value={description}
-          onClick={onChange}
+          onChange={onChange}
           placeholder="Describe Your property"
           required
           className="w-full px-4 py-2 text-lg text-gray-400 
@@ -245,29 +243,78 @@ export default function CreateListing() {
             No
           </button>
         </div>
-        <div className="flex">
+        <div className="flex justify-start items-center mb-6">
           <div className="">
             <p className="text-xl mt-5 font-semibold ">Regular Price</p>
-            <input
-              type="number"
-              id="regularPrice"
-              value={regularPrice}
-              onClick={onChange}
-              min="50"
-              max="50000000"
-              required
-              className="w-full px-4 py-2 text-lg text-gray-400 
+            <div className="flex w-full justify-center items-center space-x-6 mt-2">
+              <input
+                type="number"
+                id="regularPrice"
+                value={regularPrice}
+                onChange={onChange}
+                min="50"
+                max="50000000"
+                required
+                className="w-full px-4 py-2 text-lg text-gray-400
         bg-white border border-gray-300 rounded-l
         transition ease-in-out duration-500 focus:text-gray-700 focus:bg-white
         focus:border-slate-600 focus:shadow-xl"
-            />
+              />
+              {type === "sell" && (
+                <div className="">
+                  <p className="text-md w-full whitespace-nowrap top">$/Month</p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
-        {type === "rent" && (
-          <div className="">
-            <p className="w-full whitespace-nowrap text-md">$/Month</p>
+        {offer && (
+          <div className="flex justify-start items-center mb-6">
+            <div className="">
+              <p className="text-xl mt-5 font-semibold ">Discounted Price</p>
+              <div className="flex w-full justify-center items-center space-x-6 mt-2">
+                <input
+                  type="number"
+                  id="discountedPrice"
+                  value={discountedPrice}
+                  onChange={onChange}
+                  min="50"
+                  max="50000000"
+                  required
+                  className="w-full px-4 py-2 text-lg text-gray-400
+        bg-white border border-gray-300 rounded-l
+        transition ease-in-out duration-500 focus:text-gray-700 focus:bg-white
+        focus:border-slate-600 focus:shadow-xl"
+                />
+                {type === "sell" && (
+                  <div className="">
+                    <p className="text-md w-full whitespace-nowrap top">$/Month</p>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         )}
+        <div className="mb-6 ">
+          <p className="text-xl font-semibold">Images</p>
+          <p className="text-gray-600">The first Images will be the cover (max 6)</p>
+          <input type="file" 
+          id="images" 
+          onChange={onChange}
+            accept=".jpg,.png,.jpeg"
+            multiple
+            required
+            className="w-full px-3 py-1.5 text-gray-700 bg-white
+          border border-black-300 rounded cursor-pointer shadow
+          transition duration-200 ease-in-out focus:bg-white focus:bg-blue
+          "
+          />
+        </div>
+        <button type="submit" className="w-full bg-blue-500 text-white
+              uppercase px-7 py-2 text-m font-medium
+              rounded-lg shadow-md hover:bg-blue-600 transition
+              ease-in-out duration-700 hover:shadow-xl
+              active:bg-blue-800">Create Listing</button>
       </form>
     </main>
   );
